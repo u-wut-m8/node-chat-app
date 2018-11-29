@@ -2,22 +2,14 @@ var socket = io();                     //Tells server to open up connection betw
 socket.on("connect", () => {
   console.log("Connected to server.");
 
-  // socket.emit("createEmail", {
-  //   to: "john@doe.com",
-  //   text: "Hello there!"
+  // socket.emit("createMessage", {
+  //   from: "pakalu@papito.com",
+  //   text: "Yup, that works for me!"
   // });
-
-  socket.emit("createMessage", {
-    to: "pakalu@papito.com",
-    text: "Yup, that works for me!"
-  });
 });
 socket.on("disconnect", () => {
   console.log("Disconnected from server.");
 });
-// socket.on("newEmail", function (email) {
-//   console.log("New email.", email);
-// });
 socket.on("newMessage", function (message) {
   console.log("New message ", message);
 });
