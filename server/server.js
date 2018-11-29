@@ -14,6 +14,18 @@ var io = socketIO(server);
 io.on("connection", (socket) => {                                                    //on() registers an event listener.
   console.log("New user connected.");
 
+  socket.emit("newMessage", {
+    from: "Admin",
+    text: "Welcome to the chat application.",
+    createdAt: new Date().getTime()
+  });
+
+  socket.broadcast.emit("newMessage", {
+    from: "Admin",
+    text: "New user joined the chat group.",
+    createdAt: new Date().getTime()
+  });
+
   socket.on("createMessage", (createMessage) => {
     console.log("createMessage", createMessage);
     io.emit("newMessage", {
@@ -21,6 +33,11 @@ io.on("connection", (socket) => {                                               
       text: createMessage.text,
       createdAt: new Date().getTime()
     });
+    // socket.broadcast.emit("newMessage", {
+    //   from: createMessage.from,
+    //   text: createMessage.text,
+    //   createdAt: new Date().getTime()
+    // });
   });
 
   // socket.emit("newMessage", {
