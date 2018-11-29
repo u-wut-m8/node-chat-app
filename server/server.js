@@ -19,25 +19,16 @@ io.on("connection", (socket) => {                                               
 
   socket.broadcast.emit("newMessage", generateMessage("Admin", "New user joined."));
 
-  socket.on("createMessage", (createMessage) => {
+  socket.on("createMessage", (createMessage, callback) => {
     console.log("createMessage", createMessage);
     io.emit("newMessage", generateMessage(createMessage.from, createMessage.text));
-    //   from: createMessage.from,
-    //   text: createMessage.text,
-    //   createdAt: new Date().getTime()
-    // });
+    callback("Response from server.");
     // socket.broadcast.emit("newMessage", {
     //   from: createMessage.from,
     //   text: createMessage.text,
     //   createdAt: new Date().getTime()
     // });
   });
-
-  // socket.emit("newMessage", {
-  //   from: "xyz@abc.com",
-  //   body: "Hello there!",
-  //   createdAt: new Date().toString()
-  // });
 
   socket.on("disconnect", () => {
     console.log("User disconnected.");
