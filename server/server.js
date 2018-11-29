@@ -14,9 +14,30 @@ var io = socketIO(server);
 io.on("connection", (socket) => {                                                     //on() registers an event listener.
   console.log("New user connected.");
 
-  socket.on("disconnect", (socket) => {
+  // socket.emit("newEmail", {
+  //   from: "microsoft@exmaple.com",
+  //   text: "Aye, LMAO!",
+  //   createdAt: new Date().toString()
+  // });
+
+  // socket.on("createEmail", (newEmail) => {
+  //   console.log("createEmail", newEmail);
+  // });
+
+  socket.on("createMessage", (createMessage) => {
+    console.log("createMessage", createMessage);
+  });
+
+  socket.emit("newMessage", {
+    from: "xyz@abc.com",
+    body: "Hello there!",
+    createdAt: new Date().toString()
+  });
+
+  socket.on("disconnect", () => {
     console.log("User disconnected.");
   });
+
 });
 server.listen(port, () => {
   console.log(`Server is up on ${port}.`);
